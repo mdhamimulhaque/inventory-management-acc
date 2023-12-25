@@ -64,6 +64,18 @@ const productSchema = mongoose.Schema(
   }
 );
 
+// mongoose middleware
+productSchema.pre("save", function (next) {
+  if (this.quantity === 0) {
+    this.status = "out-of-stock";
+  }
+  next();
+});
+
+// methods
+productSchema.methods.logger = function () {
+  console.log(` Data saved for ${this.name}`);
+};
 // created model
 const Product = mongoose.model("product", productSchema);
 
@@ -71,6 +83,9 @@ app.post("/api/v1/product", async (req, res, next) => {
   try {
     const product = new Product(req.body);
     const result = await product.save();
+
+    result.logger();
+
     res.status(200).json({
       status: true,
       message: "Data inserted successfully!",
