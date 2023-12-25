@@ -100,6 +100,31 @@ app.post("/api/v1/product", async (req, res, next) => {
   }
 });
 
+app.get("/api/v1/product", async (req, res, next) => {
+  try {
+    const products = await Product.find({})
+      .select({ name: 1, quantity: 1, _id: 0 })
+      .where("name")
+      .equals("Bag")
+      .where("quantity")
+      .gte("5")
+      .lt("100")
+      .limit(2)
+      .sort({ quantity: 1 });
+    res.status(200).json({
+      status: true,
+      message: "Data get successfully!",
+      data: products,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      message: "Data isn't get!",
+      error: error.message,
+    });
+  }
+});
+
 app.get("/", (req, res) => {
   res.send("Route is working! YaY!");
 });
