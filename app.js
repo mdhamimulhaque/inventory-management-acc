@@ -6,6 +6,7 @@ const mongoose = require("mongoose");
 app.use(express.json());
 app.use(cors());
 
+// created schema
 const productSchema = mongoose.Schema(
   {
     name: {
@@ -62,6 +63,27 @@ const productSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+// created model
+const Product = mongoose.model("product", productSchema);
+
+app.post("/api/v1/product", async (req, res, next) => {
+  try {
+    const product = new Product(req.body);
+    const result = await product.save();
+    res.status(200).json({
+      status: true,
+      message: "Data inserted successfully!",
+      data: result,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      message: "Data isn't inserted!",
+      error: error.message,
+    });
+  }
+});
 
 app.get("/", (req, res) => {
   res.send("Route is working! YaY!");
