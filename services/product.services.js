@@ -19,3 +19,10 @@ exports.createProductService = async (data) => {
   const result = await product.save();
   return result;
 };
+
+exports.updateProductByIdService = async (productId, data) => {
+  const product = await Product.updateOne({ _id: productId }, data, {
+    runValidators: true,
+  });
+  return product;
+};
