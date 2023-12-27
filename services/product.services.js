@@ -1,15 +1,9 @@
 const Product = require("../models/Product.js");
 
-exports.getProductsService = async () => {
-  const products = await Product.find({});
-  //   .select({ name: 1, quantity: 1, _id: 0 })
-  //   .where("name")
-  //   .equals("Bag")
-  //   .where("quantity")
-  //   .gte("5")
-  //   .lt("100")
-  //   .limit(2)
-  //   .sort({ quantity: 1 });
+exports.getProductsService = async (filters, queries) => {
+  const products = await Product.find({})
+    .select(queries.fields)
+    .sort(queries.sortBy);
 
   return products;
 };
@@ -43,6 +37,6 @@ exports.deleteProductByIdService = async (productId) => {
   return product;
 };
 exports.bulkProductDeleteService = async (ids) => {
-  const product = await Product.deleteMany({ _id: ids });
+  const product = await Product.deleteMany({});
   return product;
 };
