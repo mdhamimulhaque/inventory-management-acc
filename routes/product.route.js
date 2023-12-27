@@ -9,6 +9,9 @@ router
   .get(productController.getProducts)
   .post(productController.createProduct);
 
-router.route("/:id").patch(productController.updateProductById);
+router
+  .route("/:id")
+  .patch(productController.updateProductById)
+  .delete(productController.deleteProductById);
 
 module.exports = router;

@@ -26,6 +26,7 @@ exports.updateProductByIdService = async (productId, data) => {
   });
   return product;
 };
+
 exports.bulkUpdateProductService = async (data) => {
   const products = [];
 
@@ -36,4 +37,8 @@ exports.bulkUpdateProductService = async (data) => {
   const result = await Promise.all(products);
 
   return result;
+};
+exports.deleteProductByIdService = async (productId) => {
+  const product = await Product.deleteOne({ _id: productId });
+  return product;
 };
