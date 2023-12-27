@@ -4,6 +4,7 @@ const {
   updateProductByIdService,
   bulkUpdateProductService,
   deleteProductByIdService,
+  bulkProductDeleteService,
 } = require("../services/product.services.js");
 
 exports.getProducts = async (req, res, next) => {
@@ -86,16 +87,38 @@ exports.deleteProductById = async (req, res, next) => {
     const { id } = req.params;
     const product = await deleteProductByIdService(id);
 
+    if (!product.deletedCount) {
+      res.status(400).json({
+        status: false,
+        message: "Product couldn't deleted",
+      });
+    }
+
     res.status(200).json({
       status: true,
       message: "product deleted successfully!",
-      data: product,
     });
   } catch (error) {
     res.status(400).json({
       status: false,
-      message: "product isn't deleted!",
+      message: "Couldn't deleted product!",
       error: error.message,
+    });
+  }
+};
+
+exports.bulkDeleteProduct = async (req, res, next) => {
+  try {
+    const products = await bulkProductDeleteService(req.body.ids);
+    res.status(200).json({
+      status: true,
+      message: "Products deleted successfully",
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      message: "couldn't deleted products!",
+      message: error.message,
     });
   }
 };
