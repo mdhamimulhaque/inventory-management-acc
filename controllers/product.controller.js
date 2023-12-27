@@ -9,11 +9,19 @@ const {
 
 exports.getProducts = async (req, res, next) => {
   try {
-    const filters = { ...req.query };
+    let filters = { ...req.query };
     const excludeFields = ["skip", "page", "sort"];
     excludeFields.forEach((field) => delete filters[field]);
 
-    const queries = {};
+    let filtersString = JSON.stringify(filters);
+    filtersString = filtersString.replace(
+      /\b(gt|gte|lt|lte)\b/g,
+      (match) => `$${match}`
+    );
+
+    filters = JSON.parse(filtersString);
+
+    let queries = {};
     if (req.query.sort) {
       const sortBy = req.query.sort.split(",").join(" ");
       queries.sortBy = sortBy;
