@@ -10,7 +10,7 @@ const {
 exports.getProducts = async (req, res, next) => {
   try {
     let filters = { ...req.query };
-    const excludeFields = ["skip", "page", "sort"];
+    const excludeFields = ["limit", "page", "sort"];
     excludeFields.forEach((field) => delete filters[field]);
 
     let filtersString = JSON.stringify(filters);
@@ -30,6 +30,13 @@ exports.getProducts = async (req, res, next) => {
     if (req.query.fields) {
       const fields = req.query.fields.split(",").join(" ");
       queries.fields = fields;
+    }
+
+    if (req.query.page) {
+      const { page = 1, limit = 2 } = req.query;
+      const skip = (page - 1) * parseInt(limit);
+      queries.skip = skip;
+      queries.limit = parseInt(limit);
     }
 
     const products = await getProductsService(filters, queries);
