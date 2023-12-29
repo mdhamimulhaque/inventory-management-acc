@@ -55,5 +55,5 @@ const brandSchema = mongoose.Schema(
   }
 );
 
-const Brand = mongoose.model("Brand", brandSchema);
+const Brand = mongoose.model("brand", brandSchema);
 module.exports = Brand;
