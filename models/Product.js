@@ -84,6 +84,6 @@ productSchema.methods.logger = function () {
   console.log(` Data saved for ${this.name}`);
 };
 // created model
-const Product = mongoose.model("product", productSchema);
+const Product = mongoose.model("Product", productSchema);
 
 module.exports = Product;

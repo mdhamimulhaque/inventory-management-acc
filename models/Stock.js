@@ -125,6 +125,6 @@ stockSchema.pre("save", function (next) {
   next();
 });
 
-const Stock = mongoose.model("stock", stockSchema);
+const Stock = mongoose.model("Stock", stockSchema);
 
 module.exports = Stock;
