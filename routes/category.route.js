@@ -8,4 +8,6 @@ router
   .get(categoryController.getCategories)
   .post(categoryController.createCategories);
 
+router.route("/:id").get(categoryController.getCategoryById);
+
 module.exports = router;
