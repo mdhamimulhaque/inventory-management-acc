@@ -18,7 +18,8 @@ exports.getBrands = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({
       status: false,
-      error: "Couldn't get the brands",
+      message: "Couldn't get the brands",
+      error: error.message,
     });
   }
 };
@@ -33,7 +34,8 @@ exports.createBrandById = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({
       status: false,
-      error: "Couldn't Create the brands",
+      message: "Couldn't Create the brands",
+      error: error.message,
     });
   }
 };
@@ -50,7 +52,8 @@ exports.getBrandById = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({
       status: false,
-      error: "Couldn't get the brand",
+      message: "Couldn't get the brand",
+      error: error.message,
     });
   }
 };
@@ -63,7 +66,8 @@ exports.updateBrandById = async (req, res, next) => {
     if (!result.nModified) {
       res.status(400).json({
         status: false,
-        error: "Couldn't update the brand",
+        message: "Couldn't update the brand",
+        error: error.message,
       });
     }
 
@@ -74,7 +78,8 @@ exports.updateBrandById = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({
       status: false,
-      error: "Couldn't update the brand",
+      message: "Couldn't update the brand",
+      error: error.message,
     });
   }
 };
@@ -87,7 +92,8 @@ exports.deleteBrandById = async (req, res, next) => {
     if (!result.deletedCount) {
       res.status(400).json({
         status: false,
-        error: "Couldn't deleted the brand",
+        message: "Couldn't deleted the brand",
+        error: error.message,
       });
     }
 
@@ -98,7 +104,8 @@ exports.deleteBrandById = async (req, res, next) => {
   } catch (error) {
     res.status(400).json({
       status: false,
-      error: "Couldn't deleted the brand",
+      message: "Couldn't deleted the brand",
+      error: error.message,
     });
   }
 };

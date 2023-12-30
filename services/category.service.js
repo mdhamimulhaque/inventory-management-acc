@@ -4,3 +4,7 @@ exports.getCategoriesService = async () => {
   const categories = await Category.find({});
   return categories;
 };
+exports.createCategoriesService = async (data) => {
+  const category = await Category.create(data);
+  return category;
+};
