@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 const validator = require("validator");
-const ObjectId = mongoose.Schema.Types;
+const { ObjectId } = mongoose.Schema.Types;
 
 const brandSchema = mongoose.Schema(
   {
@@ -30,8 +30,9 @@ const brandSchema = mongoose.Schema(
     },
     products: [
       {
-        id: ObjectId,
-        ref: "Product",
+        type: ObjectId,
+        required: true,
+        ref: "product",
       },
     ],
     suppliers: [
