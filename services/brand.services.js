@@ -9,7 +9,15 @@ exports.createBrandByIdService = async (data) => {
   const result = await Brand.create(data);
   return result;
 };
+
 exports.getBrandByIdService = async (brandId) => {
   const result = await Brand.findOne({ _id: brandId });
   return result;
+};
+
+exports.updateBrandByIdService = async (brandId, data) => {
+  const brand = await Brand.updateOne({ _id: brandId }, data, {
+    runValidators: true,
+  });
+  return brand;
 };
