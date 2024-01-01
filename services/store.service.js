@@ -6,6 +6,11 @@ exports.getStoresService = async () => {
 };
 
 exports.createStoreService = async (data) => {
-  const stores = await Store.create(data);
-  return stores;
+  const store = await Store.create(data);
+  return store;
+};
+
+exports.getStoreByIdService = async (storeId) => {
+  const store = await Store.findOne({ _id: storeId });
+  return store;
 };
