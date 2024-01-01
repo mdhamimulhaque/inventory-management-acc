@@ -32,7 +32,7 @@ const brandSchema = mongoose.Schema(
       {
         type: ObjectId,
         required: true,
-        ref: "product",
+        ref: "Product",
       },
     ],
     suppliers: [

@@ -63,8 +63,7 @@ exports.createProduct = async (req, res, next) => {
 
     res.status(200).json({
       status: true,
-      message: "Data inserted successfully!",
-      data: product,
+      message: "Product inserted successfully!",
     });
   } catch (error) {
     res.status(400).json({

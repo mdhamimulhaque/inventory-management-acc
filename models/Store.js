@@ -10,7 +10,16 @@ const storeSchema = mongoose.Schema(
       lowercase: true,
       trim: true,
       enum: {
-        type: ["dhaka", "khulna", "barishal", "sylhet", "comilla"],
+        values: [
+          "dhaka",
+          "chattogram",
+          "rajshahi",
+          "sylhet",
+          "khulna",
+          "barishal",
+          "rangpur",
+          "mymensingh",
+        ],
         message: "{VALUE} is not a valid name",
       },
     },
