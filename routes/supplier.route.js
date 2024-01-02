@@ -8,4 +8,6 @@ router
   .get(supplierController.getSupplier)
   .post(supplierController.createSupplier);
 
+router.route("/:id").patch(supplierController.updateSupplier);
+
 module.exports = router;
