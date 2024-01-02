@@ -32,16 +32,18 @@ const supplierSchema = mongoose.Schema(
         ref: "Brand",
       },
     },
-    contactNumber: {
-      type: String,
-      required: [true, "Please provide a contact number"],
-      validate: {
-        validator: (value) => {
-          return validator.isMobilePhone(value);
+    contactNumber: [
+      {
+        type: String,
+        required: [true, "Please provide a contact number"],
+        validate: {
+          validator: (value) => {
+            return validator.isMobilePhone(value);
+          },
+          message: "Please provide a valid phone number",
         },
-        message: "Please provide a valid phone number",
       },
-    },
+    ],
     emergencyContactNumber: {
       type: String,
       required: [true, "Please provide  a emergency contact number"],
