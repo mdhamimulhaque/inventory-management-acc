@@ -103,3 +103,6 @@ const supplierSchema = mongoose.Schema(
     timestamps: true,
   }
 );
+
+const Supplier = mongoose.model("supplier", supplierSchema);
+module.exports = Supplier;
