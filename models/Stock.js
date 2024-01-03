@@ -50,13 +50,15 @@ const stockSchema = mongoose.Schema(
       required: true,
     },
     brand: {
-      name: String,
-      required: true,
-    },
-    id: {
-      type: ObjectId,
-      required: true,
-      ref: "Brand",
+      name: {
+        type: String,
+        required: true,
+      },
+      id: {
+        type: ObjectId,
+        required: true,
+        ref: "Brand",
+      },
     },
     status: {
       type: String,
@@ -69,11 +71,20 @@ const stockSchema = mongoose.Schema(
     store: {
       name: {
         type: String,
+        trim: true,
         required: [true, "Please provide a store name"],
         lowercase: true,
-        trim: true,
         enum: {
-          type: ["dhaka", "khulna", "barishal", "sylhet", "comilla"],
+          values: [
+            "dhaka",
+            "chattogram",
+            "rajshahi",
+            "sylhet",
+            "khulna",
+            "barishal",
+            "rangpur",
+            "mymensingh",
+          ],
           message: "{VALUE} is not a valid name",
         },
       },
