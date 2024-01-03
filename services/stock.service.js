@@ -11,5 +11,13 @@ exports.getStocksService = async (filters, queries) => {
     .limit(queries.limit)
     .select(queries.fields)
     .sort(queries.sortBy);
-  return stocks;
+
+  const total = await Stock.countDocuments(filters);
+  const page = Math.ceil(total / queries.limit);
+
+  return {
+    total,
+    page,
+    stocks,
+  };
 };

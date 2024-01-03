@@ -26,6 +26,14 @@ exports.getStocks = async (req, res, next) => {
     const excludeFields = ["sort", "page", "limit", "fields"];
     excludeFields.forEach((field) => delete filters[field]);
 
+    let filtersString = JSON.stringify(filters);
+    filtersString = filtersString.replace(
+      /\b(gt|gte|lt|lte)\b/g,
+      (match) => `$${match}`
+    );
+
+    filters = JSON.parse(filtersString);
+
     let queries = {};
 
     if (req.query.sort) {
@@ -36,7 +44,6 @@ exports.getStocks = async (req, res, next) => {
     if (req.query.fields) {
       const fields = req.query.fields.split(",").join(" ");
       queries.fields = fields;
-      console.log(fields);
     }
 
     if (req.query.page) {
@@ -47,7 +54,6 @@ exports.getStocks = async (req, res, next) => {
       queries.limit = parseInt(limit);
     }
 
-    // console.log(queries);
     const stocks = await getStocksService(filters, queries);
 
     res.status(200).json({
