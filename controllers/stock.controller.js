@@ -39,6 +39,14 @@ exports.getStocks = async (req, res, next) => {
       console.log(fields);
     }
 
+    if (req.query.page) {
+      const { page = 1, limit = 10 } = req.query;
+
+      const skip = (page - 1) * parseInt(limit);
+      queries.skip = skip;
+      queries.limit = parseInt(limit);
+    }
+
     // console.log(queries);
     const stocks = await getStocksService(filters, queries);
 
