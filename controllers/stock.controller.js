@@ -23,7 +23,7 @@ exports.createStock = async (req, res, next) => {
 exports.getStocks = async (req, res, next) => {
   try {
     let filters = { ...req.query };
-    const excludeFields = ["sort", "page", "limit"];
+    const excludeFields = ["sort", "page", "limit", "fields"];
     excludeFields.forEach((field) => delete filters[field]);
 
     let queries = {};
@@ -32,7 +32,14 @@ exports.getStocks = async (req, res, next) => {
       const sortBy = req.query.sort.split(",").join(" ");
       queries.sortBy = sortBy;
     }
-    console.log(queries);
+
+    if (req.query.fields) {
+      const fields = req.query.fields.split(",").join(" ");
+      queries.fields = fields;
+      console.log(fields);
+    }
+
+    // console.log(queries);
     const stocks = await getStocksService(filters, queries);
 
     res.status(200).json({

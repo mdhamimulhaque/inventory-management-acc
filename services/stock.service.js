@@ -6,6 +6,8 @@ exports.createStockService = async (data) => {
 };
 
 exports.getStocksService = async (filters, queries) => {
-  const stocks = await Stock.find(filters).sort(queries.sortBy);
+  const stocks = await Stock.find(filters)
+    .sort(queries.sortBy)
+    .select(queries.fields);
   return stocks;
 };
