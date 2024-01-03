@@ -21,3 +21,11 @@ exports.getStocksService = async (filters, queries) => {
     stocks,
   };
 };
+
+exports.getStockByIdService = async (id) => {
+  const stock = Stock.find({ _id: id })
+    .populate("suppliedBy.id")
+    .populate("brand.id")
+    .populate("store.id");
+  return stock;
+};

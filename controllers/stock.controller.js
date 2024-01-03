@@ -1,6 +1,7 @@
 const {
   createStockService,
   getStocksService,
+  getStockByIdService,
 } = require("../services/stock.service");
 
 exports.createStock = async (req, res, next) => {
@@ -65,6 +66,24 @@ exports.getStocks = async (req, res, next) => {
     res.status(400).json({
       status: false,
       message: "stock couldn't get!",
+      error: error.message,
+    });
+  }
+};
+
+exports.getStockById = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const stock = await getStockByIdService(id, req.body);
+    res.status(200).json({
+      status: true,
+      message: "Data get successfully!",
+      data: stock,
+    });
+  } catch (error) {
+    res.status(400).json({
+      status: false,
+      message: " couldn't get data!",
       error: error.message,
     });
   }

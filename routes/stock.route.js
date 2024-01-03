@@ -7,4 +7,6 @@ router
   .post(stockController.createStock)
   .get(stockController.getStocks);
 
+router.route("/:id").get(stockController.getStockById);
+
 module.exports = router;
