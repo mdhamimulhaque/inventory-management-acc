@@ -90,6 +90,7 @@ const userSchema = mongoose.Schema(
   }
 );
 
+// ---> hash password
 userSchema.pre("save", function (next) {
   const password = this.password;
   const hashedPassword = bcrypt.hashSync(password);
@@ -98,6 +99,12 @@ userSchema.pre("save", function (next) {
 
   next();
 });
+
+// ---> checked password
+userSchema.methods.comparePassword = function (password, hashedPassword) {
+  const isPasswordValid = bcrypt.compareSync(password, hashedPassword);
+  return isPasswordValid;
+};
 
 const User = mongoose.model("User", userSchema);
 
