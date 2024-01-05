@@ -2,6 +2,7 @@ const {
   signUpUserService,
   getUserByEmail,
 } = require("../services/user.service");
+const { createToken } = require("../utils/token");
 
 exports.signUpUser = async (req, res, next) => {
   try {
@@ -55,9 +56,16 @@ exports.loginUser = async (req, res, next) => {
       });
     }
 
+    const { password: psw, ...othersInfo } = user.toObject();
+    const token = createToken(user);
+
     res.status(200).json({
       status: true,
       message: "Successfully logged in",
+      data: {
+        user: othersInfo,
+        token,
+      },
     });
   } catch (error) {
     res.status(500).json({
